@@ -5,29 +5,40 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using CustomersLib;
 
 namespace RestCostumerService
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-	// NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-	public class Service1 : IService1
+	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "CustomerService" in code, svc and config file together.
+	// NOTE: In order to launch WCF Test Client for testing this service, please select CustomerService.svc or CustomerService.svc.cs at the Solution Explorer and start debugging.
+	public class CustomerService : ICustomerService
 	{
-		public string GetData(int value)
+		private static List<Customer> _cList = new List<Customer>()
 		{
-			return string.Format("You entered: {0}", value);
+			new Customer(1, "Lars", "Larsen", 1820),
+			new Customer(2, "Anders", "And", 1770)
+		};
+
+		public CustomerService()
+		{
+			Customer Customer1 = new Customer(3, "Hans", "Christian", 1967);
+			Customer Customer2 = new Customer(4, "Børge", "Henningsen", 1456);
+
+			_cList.Add(Customer1);
+			_cList.Add(Customer2);
+
 		}
 
-		public CompositeType GetDataUsingDataContract(CompositeType composite)
+
+
+		public IList<Customer> GetCustomers()
 		{
-			if (composite == null)
-			{
-				throw new ArgumentNullException("composite");
-			}
-			if (composite.BoolValue)
-			{
-				composite.StringValue += "Suffix";
-			}
-			return composite;
+			//Customer Customer1 = new Customer(1, "Lars", "Larsen", 1820);
+			//Customer Customer2 = new Customer(2, "Anders", "And", 1770);
+
+			//cList.Add(Customer1);
+			//cList.Add(Customer2);
+			return _cList;
 		}
 	}
 }
